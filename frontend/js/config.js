@@ -1,1 +1,1 @@
-const API_URL = "https://observatorio-laboral-up.vercel.app";
+const API_URL = "https://observatoriolaboralupbackend.onrender.com";
