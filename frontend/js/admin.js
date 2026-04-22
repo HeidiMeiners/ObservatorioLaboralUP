@@ -1,7 +1,7 @@
 const token = localStorage.getItem("token");
 const usuario = localStorage.getItem("usuario");
 
-if (!token || usuario == undefined) {
+if (!token) {
     window.location.href = "../html/Login.html";
 }
 
