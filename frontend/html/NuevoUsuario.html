@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../assets/Logo.png" type="image/png">
+    <link rel="stylesheet" href="../css/nuevoUsuario.css">
+    <script src="../js/config.js"></script>
+    <script src="../js/nuevoUsuario.js"></script>
+    <title>Nuevo usuario</title>
+</head>
+<body>
+    <div class="nuevoContainer">
+        <h3>Bienvenido al Observatorio Laboral de la Universidad Panamericana</h3>
+        <p id="mensaje">Por favor, complete el siguiente formulario para crear su usuario</p>
+        <input id="nombre" class="inputs" type="text" placeholder="Ingrese su nombre">
+        <input id="apellido" class="inputs" type="text" placeholder="Ingrese sus apellidos">
+        <input id="email" class="inputs" type="email" placeholder="Ingrese su correo electrónico">
+        <input id="password" class="inputs" type="password" placeholder="Ingrese su contraseña">
+        <input id="confirmPassword" class="inputs" type="password" placeholder="Confirme su contraseña">
+        <button class="buttons" onclick="crearUsuario()">Crear usuario</button>
+        <a href="../html/Login.html">Regresar al login</a>
+    </div>
+
+</body>
+</html>

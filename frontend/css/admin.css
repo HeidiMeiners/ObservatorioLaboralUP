@@ -1,0 +1,47 @@
+#listaUsuarios {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem;
+}
+
+.user-card {
+    display: flex;
+    gap:10px;
+    justify-content: space-between;
+    background: transparent;
+    border-radius: 16px;
+    padding: 1.2rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.25s ease;
+    border: 1px solid rgb(98, 0, 0);
+}
+
+.user-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.user-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #2c2c2c;
+    margin-bottom: 0.3rem;
+}
+
+.user-email {
+    font-size: 0.9rem;
+    color: #777;
+    margin-bottom: 0.8rem;
+}
+
+.delete:hover{
+    color: rgb(255, 0, 0);
+    cursor: pointer;
+}
+
+.delete-edit {
+    display: grid;
+    gap: 10px;
+    align-items: center;
+}
