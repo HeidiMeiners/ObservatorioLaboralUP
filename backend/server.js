@@ -16,7 +16,8 @@ console.log("CORREO existe:", !!process.env.CORREO);
 console.log("PASS existe:", !!process.env.contrasenaCorreo);
 
 const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    service: 'smtp-relay.brevo.com',
+    port: 587,
     auth: {
         user: process.env.CORREO,
         pass: process.env.contrasenaCorreo
