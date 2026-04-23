@@ -5,6 +5,11 @@ const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 
+console.log("--- CHEQUEO DE INICIO ---");
+console.log("MONGO_URI existe:", !!process.env.mongo);
+console.log("CORREO existe:", !!process.env.CORREO);
+console.log("PASS existe:", !!process.env.contrasenaCorreo);
+
 mongoose.connect(process.env.mongo)
     .then(() => console.log("Mongo conectado"))
     .catch(err => console.log(err));
@@ -69,6 +74,8 @@ app.post("/registro", async (req, res) => {
             }
         });
 
+        
+
     await transporter.sendMail({
         from: process.env.CORREO,
         to: email,
@@ -101,6 +108,7 @@ app.post("/registro", async (req, res) => {
         `
     });
 
+    console.log("Correo enviado correctamente a:", email);
     res.json({ mensaje: "Usuario creado. Revisa tu correo." });
         }
 
@@ -200,7 +208,7 @@ app.get("/verificar/:token", async (req, res) => {
             verificado: true
         });
 
-        res.redirect(`${process.env.URL}/frontend/html/login.html?msg=verificado`);
+        res.redirect("https://tu-proyecto-en-vercel.vercel.app/html/login.html?msg=verificado");
 
     } catch (error) {
         res.send("Link inválido o expirado");
