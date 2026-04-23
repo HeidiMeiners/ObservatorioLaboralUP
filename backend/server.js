@@ -4,20 +4,38 @@ const cors = require("cors");
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
+const app = express();
+
+app.use(cors());
+app.use(express.json());
 
 console.log("--- CHEQUEO DE INICIO ---");
 console.log("MONGO_URI existe:", !!process.env.mongo);
 console.log("CORREO existe:", !!process.env.CORREO);
 console.log("PASS existe:", !!process.env.contrasenaCorreo);
 
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.CORREO,
+        pass: process.env.contrasenaCorreo
+    }
+});
+
+// Verifica la conexión apenas prendas el server
+transporter.verify((error) => {
+    if (error) {
+        console.log("❌ Error de credenciales local:", error.message);
+    } else {
+        console.log("✅ Nodemailer está listo en local");
+    }
+});
+
 mongoose.connect(process.env.mongo)
     .then(() => console.log("Mongo conectado"))
     .catch(err => console.log(err));
 
-const app = express();
-
-app.use(cors());
-app.use(express.json());
 
 const usuarioSchema = new mongoose.Schema({
     nombre: String,
@@ -30,8 +48,6 @@ const usuarioSchema = new mongoose.Schema({
         default: false
     }
 });
-
-const nodemailer = require("nodemailer");
 
 const Usuario = mongoose.model("Usuario", usuarioSchema);
 
@@ -64,17 +80,6 @@ app.post("/registro", async (req, res) => {
     );
 
     const link = `${process.env.URL}/verificar/${token}`;
-
-    const transporter = nodemailer.createTransport({
-            type: 'login',
-            service: 'gmail',
-            auth: {
-                user: process.env.CORREO,
-                pass: process.env.contrasenaCorreo
-            }
-        });
-
-        
 
     await transporter.sendMail({
         from: process.env.CORREO,
