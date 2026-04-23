@@ -16,17 +16,10 @@ console.log("CORREO existe:", !!process.env.CORREO);
 console.log("PASS existe:", !!process.env.contrasenaCorreo);
 
 const transporter = nodemailer.createTransport({
-    host: "smtp-relay.brevo.com",
-    port: 587,
-    secure: false,
+    service: 'gmail',
     auth: {
-        user: process.env.CORREO, 
+        user: process.env.CORREO,
         pass: process.env.contrasenaCorreo
-    },
-    tls: {
-        // Esto es lo que evita el error de "localhost" (::1)
-        rejectUnauthorized: false,
-        servername: "smtp-relay.brevo.com"
     }
 });
 
