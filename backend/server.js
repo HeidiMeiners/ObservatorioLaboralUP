@@ -1,4 +1,4 @@
-//require("dotenv").config();
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const bcrypt = require("bcrypt");
@@ -61,7 +61,8 @@ app.post("/registro", async (req, res) => {
     const link = `${process.env.URL}/verificar/${token}`;
 
     const transporter = nodemailer.createTransport({
-            service: 'gmail', // Simplificamos para probar
+            type: 'login',
+            service: 'gmail',
             auth: {
                 user: process.env.CORREO,
                 pass: process.env.contrasenaCorreo
