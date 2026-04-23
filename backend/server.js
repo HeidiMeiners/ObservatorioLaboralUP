@@ -5,10 +5,6 @@ const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 
-console.log("--- INICIANDO SERVIDOR ---");
-console.log("Variable mongo:", process.env.mongo ? "OK" : "VACÍA");
-console.log("Variable CORREO:", process.env.CORREO ? "OK" : "VACÍA");
-
 mongoose.connect(process.env.mongo)
     .then(() => console.log("Mongo conectado"))
     .catch(err => console.log(err));
@@ -31,20 +27,6 @@ const usuarioSchema = new mongoose.Schema({
 });
 
 const nodemailer = require("nodemailer");
-
-const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 465,
-    secure: true,
-    auth: {
-        type: 'login',
-        user: process.env.CORREO,
-        pass: process.env.contrasenaCorreo
-    },
-    tls: {
-        rejectUnauthorized: false 
-    }
-});
 
 const Usuario = mongoose.model("Usuario", usuarioSchema);
 
@@ -77,6 +59,14 @@ app.post("/registro", async (req, res) => {
     );
 
     const link = `${process.env.URL}/verificar/${token}`;
+
+    const transporter = nodemailer.createTransport({
+            service: 'gmail', // Simplificamos para probar
+            auth: {
+                user: process.env.CORREO,
+                pass: process.env.contrasenaCorreo
+            }
+        });
 
     await transporter.sendMail({
         from: process.env.CORREO,
