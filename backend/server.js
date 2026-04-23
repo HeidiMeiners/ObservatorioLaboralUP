@@ -28,6 +28,10 @@ const usuarioSchema = new mongoose.Schema({
 
 const nodemailer = require("nodemailer");
 
+console.log("--- INTENTANDO CONFIGURAR CORREO ---");
+console.log("Cuenta:", process.env.CORREO); 
+console.log("Pass cargada:", process.env.contrasenaCorreo ? "SI" : "NO");
+console.log("--------------------------");
 const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 465,
