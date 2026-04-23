@@ -29,7 +29,7 @@ const usuarioSchema = new mongoose.Schema({
 const nodemailer = require("nodemailer");
 
 const transporter = nodemailer.createTransport({
-    service: "gmail",
+    service: "smtp.gmail.com",
     auth: {
         user: process.env.CORREO,
         pass: process.env.contrasenaCorreo
