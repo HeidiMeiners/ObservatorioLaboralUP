@@ -67,12 +67,11 @@ function mostrarUsuarios(usuarios) {
                 <div>
                     <div class="user-name">${usuario.nombre} ${usuario.apellido}</div>
                     <div class="user-email">${usuario.email}</div>
-                    <div class="cuenta">
-                        <button class="cuenta-btn" onclick="CambiarCuenta('${usuario}')">Alumno</button>
-                        <button class="cuenta-btn" onclick="CambiarCuenta('${usuario}')">Admin</button>
-                        <button class="cuenta-btn" onclick="CambiarCuenta('${usuario}')">Director</button>
+                    <div class="cuenta" >
+                        <button class="cuenta-btn ${usuario.cuenta === 'Alumno' ? 'active' : ''}" onclick="cambiarCuenta('${usuario._id}', 'Alumno')">Alumno</button>
+                        <button class="cuenta-btn ${usuario.cuenta === 'Admin' ? 'active' : ''}" onclick="cambiarCuenta('${usuario._id}', 'Admin')">Admin</button>
+                        <button class="cuenta-btn ${usuario.cuenta === 'Director' ? 'active' : ''}" onclick="cambiarCuenta('${usuario._id}', 'Director')">Director</button>
                     </div>
-                    <div class="user-email">${usuario.cuenta}</div>
                 </div>
                 <div class="delete-edit" onclick="deleteUser('${usuario._id}', '${usuario.email}')">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash3 delete" viewBox="0 0 16 16">
@@ -119,6 +118,31 @@ function deleteUser(id,correoUser) {
     });
 }
 
-function cambiarCuenta(){
+function cambiarCuenta(id, nuevoRol) {
+    const token = localStorage.getItem("token");
 
+    if (!confirm("¿Seguro que quieres cambiar la cuenta de este usuario?")) {
+        return;
+    }
+
+    fetch(`${API_URL}/usuarios/cuenta/${id}`, {
+        method: "PUT",
+        headers: {
+            "Authorization": token,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ cuenta: nuevoRol })
+    })
+    .then(async res => {
+        const data = await res.json();
+        if (res.ok) {
+            location.reload(); 
+        } else {
+            alert(data.error || "Error al actualizar");
+        }
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        alert("Error de conexión");
+    });
 }

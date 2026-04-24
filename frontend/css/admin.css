@@ -45,3 +45,29 @@
     gap: 10px;
     align-items: center;
 }
+
+.cuenta-btn {
+    background-color: transparent;
+    border:  rgb(98, 0, 0) solid 1px;
+    color: rgb(98, 0, 0);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.cuenta-btn.active {
+    background-color: rgb(98, 0, 0);
+    color: white;
+}
+
+.cuenta-btn.active:hover {
+    background-color: rgb(79, 0, 0);
+    color: white;
+}
+
+.cuenta-btn:hover {
+    background-color: rgb(79, 0, 0);
+    cursor: pointer;
+    color:white;
+}

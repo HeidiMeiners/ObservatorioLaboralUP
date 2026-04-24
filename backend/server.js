@@ -23,15 +23,6 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-// Verifica la conexión apenas prendas el server
-transporter.verify((error) => {
-    if (error) {
-        console.log("❌ Error de credenciales local:", error.message);
-    } else {
-        console.log("✅ Nodemailer está listo en local");
-    }
-});
-
 mongoose.connect(process.env.mongo)
     .then(() => console.log("Mongo conectado"))
     .catch(err => console.log(err));
@@ -238,5 +229,39 @@ app.delete("/usuarios/:id", verificarToken, async (req, res) => {
     } catch (error) {
         console.log(error);
         res.status(500).json({ error: "Error al eliminar el usuario" });
+    }
+});
+
+app.put("/usuarios/cuenta/:id", verificarToken, async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { cuenta } = req.body;
+
+        if (req.usuario.cuenta !== "Admin") {
+            return res.status(403).json({ error: "No tienes permisos para cambiar roles" });
+        }
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({ error: "ID de usuario inválido" });
+        }
+
+        const usuarioActualizado = await Usuario.findByIdAndUpdate(
+            id, 
+            { cuenta: cuenta }, 
+            { new: true } 
+        );
+
+        if (!usuarioActualizado) {
+            return res.status(404).json({ error: "Usuario no encontrado" });
+        }
+
+        res.json({ 
+            mensaje: "Cuenta actualizada con éxito", 
+            usuario: usuarioActualizado 
+        });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Error al actualizar el usuario" });
     }
 });

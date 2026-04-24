@@ -1,1 +1,1 @@
-const API_URL = "https://observatoriolaboralupbackend.onrender.com";
+const API_URL = "http://localhost:5500";
