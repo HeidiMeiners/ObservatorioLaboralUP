@@ -204,7 +204,7 @@ app.get("/verificar/:token", async (req, res) => {
             verificado: true
         });
 
-        res.redirect("https://tu-proyecto-en-vercel.vercel.app/html/login.html?msg=verificado");
+        res.redirect("https://observatorio-laboral-up.vercel.app/html/login.html?msg=verificado");
 
     } catch (error) {
         res.send("Link inválido o expirado");
