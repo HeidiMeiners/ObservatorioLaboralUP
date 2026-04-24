@@ -3,16 +3,17 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+    min-height: 100vh;
     margin: 0;
     font-family: Arial;
 }
 
 .loginContainer {
-    margin-top: 25vh;
-    width: 52vh;
-    height: 50vh;
+    width: 90%; 
+    max-width: 400px;
     border-radius: 20px;
     box-shadow: 7px 13px 30px black;
+    box-sizing: border-box;
 }
 
 .loginContainer h3{
